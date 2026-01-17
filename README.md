@@ -141,3 +141,5 @@ Phase 03: Professional Expansion & Production (Via international professional ne
 [Arabic Version] الباب مفتوح دائماً للمبدعين، المنتجين، والمبرمجين الذين يؤمنون بأن القصص العظيمة هي التي تغير العالم.
 
 [English Version] The door is always open for creators, producers, and developers who believe that great stories are what change the world. 
+©Written by Ahmed Salama Hashem
+The Architect of Dramatic Conflict™
