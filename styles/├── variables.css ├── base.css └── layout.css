@@ -1,1 +1,1186 @@
+/* =========================================================
+   AHMED SALAMA HASHEM
+   GLOBAL DESIGN FOUNDATION
+   STAGE 01 / 10
+   ========================================================= */
 
+/* ------------------------------
+   1. CSS RESET (Modern)
+-------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    background-color: #0b0b0b;
+    color: #eaeaea;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* ------------------------------
+   2. ROOT VARIABLES (Design Tokens)
+-------------------------------- */
+:root {
+    /* Core Colors */
+    --bg-main: #0b0b0b;
+    --bg-panel: #121212;
+    --bg-soft: #1a1a1a;
+
+    --gold-primary: #ffcc33;
+    --gold-dim: #caa428;
+
+    --text-main: #eaeaea;
+    --text-muted: #9a9a9a;
+    --text-dark: #666;
+
+    /* Borders & Shadows */
+    --border-soft: rgba(255,255,255,0.08);
+    --shadow-soft: 0 10px 30px rgba(0,0,0,0.4);
+
+    /* Motion */
+    --ease-main: cubic-bezier(.4,0,.2,1);
+    --transition-fast: 0.25s var(--ease-main);
+    --transition-medium: 0.45s var(--ease-main);
+
+    /* Layout */
+    --max-width: 1400px;
+    --radius-small: 6px;
+    --radius-medium: 12px;
+    --radius-large: 20px;
+
+    /* Z-index system */
+    --z-base: 1;
+    --z-ui: 100;
+    --z-modal: 1000;
+}
+
+/* ------------------------------
+   3. GLOBAL ELEMENT RULES
+-------------------------------- */
+img,
+video {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* ------------------------------
+   4. UTILITY CLASSES (Minimal)
+-------------------------------- */
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--max-width);
+    margin-inline: auto;
+    padding-inline: 20px;
+}
+
+/* =========================================================
+   STAGE 02 / 10
+   TYPOGRAPHY SYSTEM
+   ========================================================= */
+
+/* ------------------------------
+   1. BASE TEXT
+-------------------------------- */
+p {
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+small {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ------------------------------
+   2. HEADINGS SCALE
+-------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: var(--text-main);
+}
+
+h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+}
+
+h2 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+}
+
+h3 {
+    font-size: 1.6rem;
+}
+
+h4 {
+    font-size: 1.3rem;
+    color: var(--gold-primary);
+}
+
+h5 {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+}
+
+h6 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dark);
+}
+
+/* ------------------------------
+   3. EMPHASIS & INLINE TEXT
+-------------------------------- */
+strong {
+    font-weight: 600;
+    color: var(--gold-primary);
+}
+
+em {
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+mark {
+    background-color: rgba(255, 204, 51, 0.15);
+    color: var(--gold-primary);
+    padding: 0.15em 0.3em;
+    border-radius: 4px;
+}
+
+/* ------------------------------
+   4. SPECIAL TEXT BLOCKS
+-------------------------------- */
+.script-format {
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    background-color: var(--bg-soft);
+    padding: 20px;
+    border-left: 3px solid var(--gold-dim);
+    border-radius: var(--radius-small);
+    margin-block: 20px;
+}
+
+.script-format p {
+    margin-bottom: 0.8rem;
+    line-height: 1.7;
+}
+
+/* ------------------------------
+   5. TEXT ALIGNMENT HELPERS
+-------------------------------- */
+.text-center { text-align: center; }
+.text-right  { text-align: right; }
+.text-muted  { color: var(--text-muted); }
+/* =========================================================
+   STAGE 03 / 10
+   LAYOUT SYSTEM
+   ========================================================= */
+
+/* ------------------------------
+   1. PAGE WRAPPER
+-------------------------------- */
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-main);
+}
+
+/* ------------------------------
+   2. MAIN SECTIONS
+-------------------------------- */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-ui);
+    background-color: rgba(11,11,11,0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    gap: 30px;
+    padding-block: 40px;
+}
+
+/* ------------------------------
+   3. SIDE SYSTEM (Optional)
+-------------------------------- */
+.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background-color: var(--bg-panel);
+    border-radius: var(--radius-medium);
+    padding: 20px;
+    box-shadow: var(--shadow-soft);
+}
+
+.sidebar.sticky {
+    position: sticky;
+    top: 120px;
+    height: fit-content;
+}
+
+/* ------------------------------
+   4. CONTENT AREA
+-------------------------------- */
+.content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ------------------------------
+   5. GRID SYSTEM (Feed Ready)
+-------------------------------- */
+.grid {
+    display: grid;
+    gap: 24px;
+}
+
+.grid.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid.cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* ------------------------------
+   6. FLEX HELPERS
+-------------------------------- */
+.flex {
+    display: flex;
+}
+
+.flex.center {
+    justify-content: center;
+    align-items: center;
+}
+
+.flex.between {
+    justify-content: space-between;
+}
+
+.flex.column {
+    flex-direction: column;
+}
+
+.flex.gap-sm { gap: 10px; }
+.flex.gap-md { gap: 20px; }
+.flex.gap-lg { gap: 30px; }
+
+/* ------------------------------
+   7. SECTION BLOCK
+-------------------------------- */
+.section {
+    margin-bottom: 60px;
+}
+
+.section-header {
+    margin-bottom: 30px;
+}
+
+.section-header h2 {
+    margin-bottom: 5px;
+}
+
+.section-header p {
+    color: var(--text-muted);
+}
+/* =========================================================
+   STAGE 04 / 10
+   FEED CORE
+   ========================================================= */
+
+/* ------------------------------
+   1. FEED CONTAINER
+-------------------------------- */
+.feed {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* ------------------------------
+   2. CARD BASE
+-------------------------------- */
+.card {
+    background-color: var(--bg-panel);
+    border-radius: var(--radius-large);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition-medium),
+                box-shadow var(--transition-medium);
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* ------------------------------
+   3. CARD MEDIA
+-------------------------------- */
+.card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.card-media img,
+.card-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ------------------------------
+   4. CARD OVERLAY (UI Layer)
+-------------------------------- */
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    pointer-events: none;
+}
+
+.card-overlay .top,
+.card-overlay .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ------------------------------
+   5. CARD CONTENT
+-------------------------------- */
+.card-content {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.card-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ------------------------------
+   6. ACTIONS (Like / Share / Save)
+-------------------------------- */
+.card-actions {
+    position: absolute;
+    right: 12px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    pointer-events: auto;
+}
+
+.card-actions button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition-fast),
+                transform var(--transition-fast);
+}
+
+.card-actions button:hover {
+    background-color: var(--gold-primary);
+    color: #000;
+    transform: scale(1.1);
+}
+
+/* ------------------------------
+   7. CARD TYPE MODIFIERS
+-------------------------------- */
+.card.video   .card-media { aspect-ratio: 9 / 16; }
+.card.post    .card-media { aspect-ratio: 1 / 1; }
+.card.article .card-media { aspect-ratio: 16 / 9; }
+/* =========================================================
+   STAGE 05 / 10
+   VIDEO EXPERIENCE
+   ========================================================= */
+
+/* ------------------------------
+   1. VIDEO ELEMENT
+-------------------------------- */
+.card-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #000;
+}
+
+/* ------------------------------
+   2. PLAY / PAUSE INDICATOR
+-------------------------------- */
+.video-indicator {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    color: rgba(255,255,255,0.8);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    pointer-events: none;
+}
+
+.card:hover .video-indicator {
+    opacity: 1;
+}
+
+/* ------------------------------
+   3. SOUND STATE
+-------------------------------- */
+.video-muted::after {
+    content: "🔇";
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 18px;
+    background: rgba(0,0,0,0.6);
+    padding: 6px 8px;
+    border-radius: 8px;
+}
+
+/* ------------------------------
+   4. PROGRESS BAR
+-------------------------------- */
+.video-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background-color: var(--gold-primary);
+    transition: width 0.1s linear;
+}
+
+/* ------------------------------
+   5. VIDEO STATES
+-------------------------------- */
+.card.is-playing .video-indicator {
+    opacity: 0;
+}
+
+.card.is-paused .video-indicator {
+    opacity: 1;
+}
+
+.card.is-loading::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle,
+        rgba(255,204,51,0.2),
+        transparent 60%
+    );
+    animation: pulse 1.4s infinite;
+}
+
+/* ------------------------------
+   6. VIDEO META OVERLAY
+-------------------------------- */
+.video-meta {
+    position: absolute;
+    bottom: 20px;
+    left: 16px;
+    right: 70px;
+    color: #fff;
+}
+
+.video-meta h4 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.video-meta p {
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+/* ------------------------------
+   7. KEYFRAMES
+-------------------------------- */
+@keyframes pulse {
+    0%   { opacity: 0.4; }
+    50%  { opacity: 0.8; }
+    100% { opacity: 0.4; }
+}
+/* =========================================================
+   STAGE 06 / 10
+   INTERACTIONS & MICRO UX
+   ========================================================= */
+
+/* ------------------------------
+   1. HOVER FEEDBACK (GLOBAL)
+-------------------------------- */
+.card,
+button,
+a {
+    transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+/* ------------------------------
+   2. BUTTON STATES
+-------------------------------- */
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus-visible {
+    outline: 2px solid var(--gold-primary);
+    outline-offset: 2px;
+}
+
+/* ------------------------------
+   3. CARD PRESS EFFECT
+-------------------------------- */
+.card:active {
+    transform: scale(0.98);
+}
+
+/* ------------------------------
+   4. ICON MICRO-MOTION
+-------------------------------- */
+.card-actions button:hover {
+    animation: iconPop 0.35s ease;
+}
+
+@keyframes iconPop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.25); }
+    100% { transform: scale(1.1); }
+}
+
+/* ------------------------------
+   5. LINK UNDERLINE EFFECT
+-------------------------------- */
+.link {
+    position: relative;
+    color: var(--gold-primary);
+}
+
+.link::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -3px;
+    width: 0%;
+    height: 2px;
+    background-color: var(--gold-primary);
+    transition: width var(--transition-fast);
+}
+
+.link:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* ------------------------------
+   6. LOADING FEEDBACK
+-------------------------------- */
+.loading {
+    pointer-events: none;
+    opacity: 0.6;
+    filter: grayscale(0.4);
+}
+
+/* ------------------------------
+   7. SCROLL HINT
+-------------------------------- */
+.scroll-hint {
+    animation: scrollPulse 2s infinite;
+    opacity: 0.6;
+}
+
+@keyframes scrollPulse {
+    0%   { transform: translateY(0); opacity: 0.4; }
+    50%  { transform: translateY(6px); opacity: 0.8; }
+    100% { transform: translateY(0); opacity: 0.4; }
+}
+/* =========================================================
+   STAGE 07 / 10
+   MODALS & OVERLAYS
+   ========================================================= */
+
+/* ------------------------------
+   1. MODAL BACKDROP
+-------------------------------- */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.75);
+    backdrop-filter: blur(6px);
+    z-index: var(--z-modal);
+    animation: fadeIn 0.4s ease;
+}
+
+/* ------------------------------
+   2. MODAL BOX
+-------------------------------- */
+.modal-box {
+    position: relative;
+    max-width: 800px;
+    margin: 5vh auto;
+    background-color: var(--bg-panel);
+    border-radius: var(--radius-large);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+    padding: 30px 32px 36px;
+    animation: modalEnter 0.5s var(--ease-main);
+}
+
+/* ------------------------------
+   3. MODAL CONTENT
+-------------------------------- */
+.modal-body-text {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* ------------------------------
+   4. CLOSE BUTTON
+-------------------------------- */
+.close-modal {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: background var(--transition-fast),
+                transform var(--transition-fast);
+}
+
+.close-modal:hover {
+    background-color: var(--gold-primary);
+    color: #000;
+    transform: rotate(90deg);
+}
+
+/* ------------------------------
+   5. SCROLLBAR (MODAL)
+-------------------------------- */
+.modal-body-text::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body-text::-webkit-scrollbar-thumb {
+    background-color: var(--gold-dim);
+    border-radius: 4px;
+}
+
+/* ------------------------------
+   6. MODAL FOOTER
+-------------------------------- */
+.modal-footer {
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: left;
+}
+
+/* ------------------------------
+   7. ANIMATIONS
+-------------------------------- */
+@keyframes modalEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+/* =========================================================
+   STAGE 08 / 10
+   ANIMATIONS & TRANSITIONS
+   ========================================================= */
+
+/* ------------------------------
+   1. REVEAL ON SCROLL (BASE)
+-------------------------------- */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ------------------------------
+   2. SOFT FLOAT (HERO ELEMENTS)
+-------------------------------- */
+@keyframes softFloat {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+}
+
+.hero .profile-seal {
+    animation: softFloat 6s ease-in-out infinite;
+}
+
+/* ------------------------------
+   3. BUTTON MICRO-INTERACTION
+-------------------------------- */
+.btn,
+.social-btn,
+.action-btn {
+    transition:
+        background-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.btn:hover,
+.social-btn:hover,
+.action-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+}
+
+/* ------------------------------
+   4. CARD LIFT EFFECT
+-------------------------------- */
+.card,
+.poster-card,
+.phil-card,
+.app-card {
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.card:hover,
+.poster-card:hover,
+.phil-card:hover,
+.app-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+/* ------------------------------
+   5. IMAGE ZOOM (CONTROLLED)
+-------------------------------- */
+.zoom-hover img {
+    transition: transform 0.6s ease;
+}
+
+.zoom-hover:hover img {
+    transform: scale(1.08);
+}
+
+/* ------------------------------
+   6. FADE TEXT IN
+-------------------------------- */
+@keyframes fadeTextUp {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.text-animate {
+    animation: fadeTextUp 0.8s ease forwards;
+}
+
+/* ------------------------------
+   7. MODAL TEXT FLOW
+-------------------------------- */
+.modal-body-text > * {
+    animation: fadeTextUp 0.5s ease both;
+}
+
+.modal-body-text > *:nth-child(2) { animation-delay: 0.05s; }
+.modal-body-text > *:nth-child(3) { animation-delay: 0.1s; }
+.modal-body-text > *:nth-child(4) { animation-delay: 0.15s; }
+
+/* ------------------------------
+   8. REDUCED MOTION (ACCESSIBILITY)
+-------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+/* =========================================================
+   STAGE 09 / 10
+   ADVANCED SECTIONS (APPS / GALLERY / VAULT)
+   ========================================================= */
+
+/* ------------------------------
+   1. SECTION FRAME
+-------------------------------- */
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    font-size: 2.4rem;
+    color: var(--gold-primary);
+    margin-bottom: 10px;
+}
+
+.section-sub {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* =========================================================
+   APPS VAULT
+   ========================================================= */
+.apps-vault {
+    padding: 120px 20px;
+    background-color: #0a0a0a;
+}
+
+.apps-grid {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.app-card {
+    background-color: var(--bg-panel);
+    border-radius: var(--radius-medium);
+    padding: 30px;
+    border: 1px solid #222;
+    position: relative;
+    overflow: hidden;
+}
+
+.app-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,204,51,0.08),
+        transparent
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.app-card:hover::before {
+    opacity: 1;
+}
+
+.app-icon {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.app-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.app-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.app-link {
+    font-size: 0.85rem;
+    color: var(--gold-primary);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition-fast);
+}
+
+.app-link:hover {
+    border-color: var(--gold-primary);
+}
+
+/* =========================================================
+   GALLERY VAULT
+   ========================================================= */
+.gallery-vault {
+    padding: 120px 20px;
+    background-color: #000;
+}
+
+.gallery-grid {
+    max-width: 1300px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 180px;
+    gap: 18px;
+}
+
+.gallery-item {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--radius-medium);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* SIZES */
+.gallery-item.large {
+    grid-column: span 3;
+    grid-row: span 2;
+}
+
+.gallery-item.medium {
+    grid-column: span 2;
+}
+
+.gallery-item.small {
+    grid-column: span 1;
+}
+
+/* OVERLAY */
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.8),
+        rgba(0,0,0,0.1)
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay h3 {
+    font-size: 1rem;
+    color: #fff;
+}
+
+.gallery-overlay span {
+    font-size: 0.75rem;
+    color: var(--gold-primary);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 900px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 160px;
+    }
+
+    .gallery-item.large,
+    .gallery-item.medium,
+    .gallery-item.small {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .apps-vault,
+    .gallery-vault {
+        padding: 80px 15px;
+    }
+}
+/* =========================================================
+   STAGE 10 / 10
+   FINAL POLISH & SYSTEM SAFETY
+   ========================================================= */
+
+/* ------------------------------
+   GLOBAL SAFETY
+-------------------------------- */
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
+    outline: none;
+}
+
+/* ------------------------------
+   INTERACTION SMOOTHING
+-------------------------------- */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a,
+button {
+    cursor: pointer;
+}
+
+/* ------------------------------
+   SCROLLBAR (DESKTOP ONLY)
+-------------------------------- */
+@media (hover: hover) {
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #050505;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--gold-primary);
+        border-radius: 10px;
+    }
+}
+
+/* ------------------------------
+   ACCESSIBILITY BASICS
+-------------------------------- */
+:focus-visible {
+    outline: 2px solid var(--gold-primary);
+    outline-offset: 4px;
+}
+
+/* ------------------------------
+   PRINT PROTECTION
+-------------------------------- */
+@media print {
+    body {
+        background: #fff;
+        color: #000;
+    }
+
+    header,
+    footer,
+    nav,
+    video,
+    .sidebar,
+    .feed-actions {
+        display: none !important;
+    }
+}
+
+/* ------------------------------
+   DEBUG HELP (OPTIONAL)
+-------------------------------- */
+/*
+.debug * {
+    outline: 1px solid red;
+}
+*/
+
+/* =========================================================
+   END OF STYLE.CSS
+   PLATFORM READY
+   ========================================================= */
