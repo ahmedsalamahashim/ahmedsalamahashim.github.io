@@ -1368,3 +1368,48 @@ nav a:hover {
     font-size: 0.85rem;
     opacity: 0.8;
 }
+/* ===============================
+   FORCE FULL RESET (DEBUG MODE)
+================================ */
+
+body * {
+    max-width: 100% !important;
+}
+
+.container,
+.wrapper,
+.layout,
+.page,
+.content {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ===============================
+   FEED HARD CENTER
+================================ */
+
+.feed {
+    position: relative;
+    width: 100vw !important;
+    max-width: 520px;
+    margin: 0 auto !important;
+}
+
+/* ===============================
+   DEBUG VISUAL (مؤقت)
+================================ */
+
+/*
+body {
+    outline: 3px solid red;
+}
+.feed {
+    outline: 3px solid yellow;
+}
+.feed-item {
+    outline: 3px solid green;
+}
+*/
